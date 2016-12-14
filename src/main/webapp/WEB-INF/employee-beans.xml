@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.prd.test.controller,
+		com.prd.test.handler,
+		com.prd.test.delegate,
+		com.prd.test.dao,
+		com.prd.test.util" />
+		<mvc:annotation-driven/>
+
+	<bean id="empQueryHandler" class="com.prd.test.handler.EmployeeQueryHandler"></bean>
+
+	<bean id="empAddHandler" class="com.prd.test.handler.EmployeeAddHandler"></bean>
+
+	<bean id="empMongoDel" class="com.prd.test.delegate.EmployeeMongoDalegate"></bean>
+
+	<bean id="objEmpDAO" class="com.prd.test.dao.EmployeeDAO"></bean>
+	
+	<bean id="objDeptDAO" class="com.prd.test.dao.DepartmentDAO"></bean>
+	
+	<bean id="objCounterUtil" class="com.prd.test.util.CounterUtil"></bean>
+	
+	
+	<bean id="empDataMapper" class="com.prd.test.mapper.EmployeeDataMapper"></bean>
+	
+	<bean id="objRespMapper" class="com.prd.test.mapper.ReponseMapper"></bean>
+	
+	<bean id="objMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></bean>
+
+
+	<mongo:mongo id="mongoE0" host="localhost" port="27017" />
+	<mongo:db-factory dbname="EMPDB" />
+
+	<bean id="mongoOperations" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+
+</beans>
